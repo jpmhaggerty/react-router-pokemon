@@ -1,25 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import { NavLink, Switch, Route, Redirect, useRouteMatch} from 'react-router-dom';
+import Cart from './Cart';
+import Products from './Products';
+import Home from './Home';
+import Product from './Product';
 
 function App() {
+  // let match = useRouteMatch();
   return (
+    <>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* <Redirect to={`/home`} /> */}
     </div>
+    {/* <Route exact path={`/home`} component={Home}> */}
+      {/* <Home /> */}
+    {/* </Route> */}
+    </>
   );
 }
 
 export default App;
+
+
+// Home page
+// Products page
+// Individual product page
+// View cart
+// Checkout page
