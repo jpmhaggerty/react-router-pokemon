@@ -21,7 +21,7 @@ export default function SpacingGrid({images}) {
         <Grid container justifyContent="center" spacing={spacing}>
           {images.map((item, value) => (
             <Grid key={value} item>
-              <RecipeReviewCard image={item} />
+              <RecipeReviewCard pokemon={item} />
             </Grid>
           ))}
         </Grid>

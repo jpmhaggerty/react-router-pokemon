@@ -42,25 +42,17 @@ function App() {
     },
   ];
 
-  // let favArray = pokeList.results;
-
-  //let favArray = pokemonArray;
-
   return (
     <>
       <div className="App">
-        {/* navbar will rerender on every page if we leave it in the primary jsx set */}
         <SearchAppBar title="PokeDex" />
 
-        {/* list out our pages and locations with switch  */}
-        {/* when the primary page rerenders, one of these will be loaded also- default is home  */}
         <Switch>
           <Route
             exact
             path={`/home`}
             render={(props) => <Home pokemonArray={pokeList} />}
           ></Route>
-          {/* <Route exact path={`/home`} component={Home}></Route> */}
           <Route exact path={`/pokemon`} component={Pokemon}></Route>
           <Route exact path={`/favorites`} component={Favorites}></Route>
           <Route exact path={`/types`} component={Types}></Route>

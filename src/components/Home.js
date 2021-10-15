@@ -10,45 +10,40 @@ function Home({ pokemonArray }) {
   // //develop new image, etc. array from pokemon API
   // const images = [
   //   {
-  //     label: {pokemonName},
-  //     imgPath:
-  //     `https://assets.pokemon.com/assets/cms2/img/pokedex/full/00${pokemonNumber}.png`,
+  //     label: { pokemonArray }.name,
+  //     imgPath: `https://assets.pokemon.com/assets/cms2/img/pokedex/full/00${
+  //       { pokemonArray }.number
+  //     }.png`,
   //   },
   //   {
-  //     label: {pokemonName},
-  //     imgPath:
-  //     `https://assets.pokemon.com/assets/cms2/img/pokedex/full/00${pokemonNumber}.png`,
+  //     label: { pokemonArray }.name,
+  //     imgPath: `https://assets.pokemon.com/assets/cms2/img/pokedex/full/00${
+  //       { pokemonArray }.number
+  //     }.png`,
   //   },
   //   {
-  //     label: {pokemonName},
-  //     imgPath:
-  //     `https://assets.pokemon.com/assets/cms2/img/pokedex/full/00${pokemonNumber}.png`,
+  //     label: { pokemonArray }.name,
+  //     imgPath: `https://assets.pokemon.com/assets/cms2/img/pokedex/full/00${
+  //       { pokemonArray }.number
+  //     }.png`,
   //   },
   //   {
-  //     label: {pokemonName},
-  //     imgPath:
-  //     `https://assets.pokemon.com/assets/cms2/img/pokedex/full/00${pokemonNumber}.png`,
+  //     label: { pokemonArray }.name,
+  //     imgPath: `https://assets.pokemon.com/assets/cms2/img/pokedex/full/00${
+  //       { pokemonArray }.number
+  //     }.png`,
   //   },
   // ];
 
-  if (pokemonArray !== null) {
-    console.log(
-      "Pokemon Array inside home: ",
-      { pokemonArray }.pokemonArray.results
-    );
-  }
-
   let images = [
     {
-      label: "Bird",
-      imgPath:
-        "https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60",
+      label: "",
+      imgPath: "",
     },
   ];
   if (pokemonArray !== null) {
     images = { pokemonArray }.pokemonArray.results;
   }
-  //console.log("Pokemon array 2:", pokemonArray);
 
   // `https://assets.pokemon.com/assets/cms2/img/pokedex/full/00${pokemonNumber}.png`
 
@@ -63,6 +58,7 @@ function Home({ pokemonArray }) {
       <Grid container justifyContent="center" spacing={2}>
         <SwipeableTextMobileStepper images={images} />
       </Grid>
+      {console.log("Home: ", images)}
       <SpacingGrid images={images} />
     </div>
   );

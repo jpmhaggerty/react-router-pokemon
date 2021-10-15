@@ -66,6 +66,24 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+  //import useState
+  // [input, setInput] = useState(
+    //userInput: null;
+  // );
+
+  //<input
+  //  type="text"
+  //  placeholder= "search pokemon"
+  //  name="inputName"
+  //  onChange((e) => {
+  //    const display = document.getElementById("displayChar");
+  //    let searchVal = e.target.value;
+  //    display.textContent = searchVal;
+  //    setState({userINput: searchVal})
+  //  })
+
+  //    feed userInput to Pokemon component and redirect to POkemon page
+  // />
 export default function SearchAppBar({ title }) {
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -134,6 +152,7 @@ export default function SearchAppBar({ title }) {
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
             />
+            {/* <input type="text" placeholder="Enter a Name" name="inputName" /> */}
           </Search>
         </Toolbar>
       </AppBar>

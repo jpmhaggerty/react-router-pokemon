@@ -28,21 +28,9 @@ const ExpandMore = styled((props) => {
 export default function RecipeReviewCard({ pokemon }) {
   const [expanded, setExpanded] = React.useState(false);
 
-  var Obj = {
-    sprite: "spritesUrl",
-    name: "pokeName",
-    id: "pokeId",
-    moves: "pokeMoves",
-    type: "pokeType",
-    weight: "pokeWeight",
-  };
-  const [dataObj, setDataObj] = React.useState(Obj);
-
-  async function handleExpandClick({ pokemon }) {
-    console.log("Pokemon recipe: ", { pokemon }.name);
-
+  async function getPokeInfo() {
     let res = await fetch(
-      `https://pokeapi.co/api/v2/pokemon/{${pokemon}.name}`
+      `https://pokeapi.co/api/v2/pokemon/${{ pokemon }["pokemon"]["name"]}`
     );
     let json = await res.json();
     let spritesUrl = await json.sprites["back_default"];
@@ -51,6 +39,7 @@ export default function RecipeReviewCard({ pokemon }) {
     let pokeMoves = await json.moves;
     let pokeType = await json.types;
     let pokeWeight = await json.weight;
+
     Obj = {
       sprite: spritesUrl,
       name: pokeName,
@@ -59,14 +48,33 @@ export default function RecipeReviewCard({ pokemon }) {
       type: pokeType,
       weight: pokeWeight,
     };
-    setDataObj(Obj);
 
-    setExpanded(!expanded);
+    console.log("Obj call: ", Obj);
+
+    setDataObj([Obj]);
     return dataObj;
   }
 
+  var Obj = {
+    sprite: "spritesUrl",
+    name: "pokeName",
+    id: "pokeId",
+    moves: "pokeMoves",
+    type: "pokeType",
+    weight: "pokeWeight",
+  };
+
+  const [dataObj, setDataObj] = React.useState();
+
+  function handleExpandClick() {
+    getPokeInfo();
+    setExpanded(!expanded);
+  }
+
+
   return (
     <Card sx={{ maxWidth: 345 }}>
+      {console.log("Data Obj: ", { dataObj })}
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -78,8 +86,7 @@ export default function RecipeReviewCard({ pokemon }) {
             <MoreVertIcon />
           </IconButton>
         }
-        title={dataObj.name}
-        subheader="September 14, 2016"
+        title={'dataObj.name'}
       />
       <CardMedia
         component="img"
@@ -116,7 +123,6 @@ export default function RecipeReviewCard({ pokemon }) {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>Method:</Typography>
           <Typography paragraph>{dataObj.moves}</Typography>
           <Typography paragraph>{dataObj.moves}</Typography>
           <Typography paragraph>{dataObj.moves}</Typography>
