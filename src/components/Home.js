@@ -4,56 +4,60 @@ import Grid from "@mui/material/Grid";
 import SwipeableTextMobileStepper from "./SwipeableTextMobileStepper";
 import SpacingGrid from "./SpacingGrid.js";
 
-function Home() {
+function Home({ pokemonArray }) {
   //still need to collect the first ten items from the array and process
 
-  //develop new image, etc. array from pokemon API
-  const images = [
-    {
-      label: "San Francisco – Oakland Bay Bridge, United States",
-      imgPath:
-        "https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60",
-    },
+  // //develop new image, etc. array from pokemon API
+  // const images = [
+  //   {
+  //     label: {pokemonName},
+  //     imgPath:
+  //     `https://assets.pokemon.com/assets/cms2/img/pokedex/full/00${pokemonNumber}.png`,
+  //   },
+  //   {
+  //     label: {pokemonName},
+  //     imgPath:
+  //     `https://assets.pokemon.com/assets/cms2/img/pokedex/full/00${pokemonNumber}.png`,
+  //   },
+  //   {
+  //     label: {pokemonName},
+  //     imgPath:
+  //     `https://assets.pokemon.com/assets/cms2/img/pokedex/full/00${pokemonNumber}.png`,
+  //   },
+  //   {
+  //     label: {pokemonName},
+  //     imgPath:
+  //     `https://assets.pokemon.com/assets/cms2/img/pokedex/full/00${pokemonNumber}.png`,
+  //   },
+  // ];
+
+  if (pokemonArray !== null) {
+    console.log(
+      "Pokemon Array inside home: ",
+      { pokemonArray }.pokemonArray.results
+    );
+  }
+
+  let images = [
     {
       label: "Bird",
       imgPath:
         "https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60",
     },
-    {
-      label: "Bali, Indonesia",
-      imgPath:
-        "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80",
-    },
-    {
-      label: "Goč, Serbia",
-      imgPath:
-        "https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60",
-    },
   ];
+  if (pokemonArray !== null) {
+    images = { pokemonArray }.pokemonArray.results;
+  }
+  //console.log("Pokemon array 2:", pokemonArray);
+
+  // `https://assets.pokemon.com/assets/cms2/img/pokedex/full/00${pokemonNumber}.png`
 
   return (
     <div className="Home">
       <header className="Home-header">
-        <h1>The World's #1 E-Commerce Site</h1>
-        <p>
-          {/* would these make more sense in the nav bar? */}
-          <Grid container justifyContent="center" spacing={3}>
-            <nav>
-              <Grid item xs={2}>
-                <NavLink exact to={`/products`}>
-                  Products
-                </NavLink>
-              </Grid>
-              <Grid item xs={2}>
-                <NavLink exact to={`/cart`}>
-                  View Cart
-                </NavLink>
-              </Grid>
-            </nav>
-          </Grid>
-        </p>
+        <h1>Professor Haggerty's Pokédex</h1>
       </header>
-      <p>View our products:</p>
+      <p>Pokémon!</p>
 
       {/* should probably add buttons to the cards to set favorites- use heart/ thumb icon?  */}
       <Grid container justifyContent="center" spacing={2}>

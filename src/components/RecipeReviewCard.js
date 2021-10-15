@@ -25,19 +25,52 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function RecipeReviewCard({ image }) {
+export default function RecipeReviewCard({ pokemon }) {
   const [expanded, setExpanded] = React.useState(false);
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  var Obj = {
+    sprite: "spritesUrl",
+    name: "pokeName",
+    id: "pokeId",
+    moves: "pokeMoves",
+    type: "pokeType",
+    weight: "pokeWeight",
   };
+  const [dataObj, setDataObj] = React.useState(Obj);
+
+  async function handleExpandClick({ pokemon }) {
+    console.log("Pokemon recipe: ", { pokemon }.name);
+
+    let res = await fetch(
+      `https://pokeapi.co/api/v2/pokemon/{${pokemon}.name}`
+    );
+    let json = await res.json();
+    let spritesUrl = await json.sprites["back_default"];
+    let pokeName = await json.name;
+    let pokeId = await json.id;
+    let pokeMoves = await json.moves;
+    let pokeType = await json.types;
+    let pokeWeight = await json.weight;
+    Obj = {
+      sprite: spritesUrl,
+      name: pokeName,
+      id: pokeId,
+      moves: pokeMoves,
+      type: pokeType,
+      weight: pokeWeight,
+    };
+    setDataObj(Obj);
+
+    setExpanded(!expanded);
+    return dataObj;
+  }
 
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
+            P
           </Avatar>
         }
         action={
@@ -45,18 +78,27 @@ export default function RecipeReviewCard({ image }) {
             <MoreVertIcon />
           </IconButton>
         }
-        title={image.label}
+        title={dataObj.name}
         subheader="September 14, 2016"
       />
       <CardMedia
         component="img"
         height="194"
-        image={image.imgPath}
-        alt="Paella dish"
+        image={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/00${dataObj.id}.png`}
+        alt="Pokemon Image"
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          {image.label}
+          {`Type: ${dataObj.type} `}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {`ID: ${dataObj.id} `}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {`Moves: ${dataObj.moves}`}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {`Weight: ${dataObj.weight}`}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -75,10 +117,10 @@ export default function RecipeReviewCard({ image }) {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>Method:</Typography>
-          <Typography paragraph>{image.label}</Typography>
-          <Typography paragraph>{image.label}</Typography>
-          <Typography paragraph>{image.label}</Typography>
-          <Typography>{image.label}</Typography>
+          <Typography paragraph>{dataObj.moves}</Typography>
+          <Typography paragraph>{dataObj.moves}</Typography>
+          <Typography paragraph>{dataObj.moves}</Typography>
+          <Typography>{dataObj.moves}</Typography>
         </CardContent>
       </Collapse>
     </Card>

@@ -8,6 +8,8 @@ import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
+import CatchingPokemonIcon from "@mui/icons-material/CatchingPokemon";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SvgIcon from "@mui/material/SvgIcon";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
@@ -88,6 +90,15 @@ export default function SearchAppBar({ title }) {
                 Home
               </Button>
             </Link>
+            <Link exact to={`/pokemon`}>
+              <Button
+                variant="outlined"
+                color="inherit"
+                startIcon={<CatchingPokemonIcon style={{ color: "red" }} />}
+              >
+                Pokémon
+              </Button>
+            </Link>
             <Link exact to={`/favorites`}>
               <Button
                 variant="outlined"
@@ -95,6 +106,15 @@ export default function SearchAppBar({ title }) {
                 startIcon={<FavoriteIcon style={{ color: "pink" }} />}
               >
                 Favorites
+              </Button>
+            </Link>
+            <Link exact to={`/cart`}>
+              <Button
+                variant="outlined"
+                color="inherit"
+                startIcon={<ShoppingCartIcon style={{ color: "blue" }} />}
+              >
+                Cart
               </Button>
             </Link>
           </Stack>
