@@ -8,8 +8,6 @@ import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-import CatchingPokemonIcon from "@mui/icons-material/CatchingPokemon";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SvgIcon from "@mui/material/SvgIcon";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
@@ -66,25 +64,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-  //import useState
-  // [input, setInput] = useState(
-    //userInput: null;
-  // );
-
-  //<input
-  //  type="text"
-  //  placeholder= "search pokemon"
-  //  name="inputName"
-  //  onChange((e) => {
-  //    const display = document.getElementById("displayChar");
-  //    let searchVal = e.target.value;
-  //    display.textContent = searchVal;
-  //    setState({userINput: searchVal})
-  //  })
-
-  //    feed userInput to Pokemon component and redirect to POkemon page
-  // />
-export default function SearchAppBar({ title }) {
+export default function SearchAppBar({ title, onHandleSearch }) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -108,15 +88,6 @@ export default function SearchAppBar({ title }) {
                 Home
               </Button>
             </Link>
-            <Link exact to={`/pokemon`}>
-              <Button
-                variant="outlined"
-                color="inherit"
-                startIcon={<CatchingPokemonIcon style={{ color: "red" }} />}
-              >
-                Pokémon
-              </Button>
-            </Link>
             <Link exact to={`/favorites`}>
               <Button
                 variant="outlined"
@@ -124,15 +95,6 @@ export default function SearchAppBar({ title }) {
                 startIcon={<FavoriteIcon style={{ color: "pink" }} />}
               >
                 Favorites
-              </Button>
-            </Link>
-            <Link exact to={`/cart`}>
-              <Button
-                variant="outlined"
-                color="inherit"
-                startIcon={<ShoppingCartIcon style={{ color: "blue" }} />}
-              >
-                Cart
               </Button>
             </Link>
           </Stack>
@@ -149,10 +111,12 @@ export default function SearchAppBar({ title }) {
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Search…"
+              placeholder="Enter a name…"
               inputProps={{ "aria-label": "search" }}
+              onBlur={(event) => {
+                onHandleSearch(event);
+              }}
             />
-            {/* <input type="text" placeholder="Enter a Name" name="inputName" /> */}
           </Search>
         </Toolbar>
       </AppBar>

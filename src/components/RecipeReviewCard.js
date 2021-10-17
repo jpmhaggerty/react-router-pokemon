@@ -12,7 +12,6 @@ import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -25,91 +24,62 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function RecipeReviewCard({ pokemon }) {
-  const [expanded, setExpanded] = React.useState(false);
-
-  async function getPokeInfo() {
-    let res = await fetch(
-      `https://pokeapi.co/api/v2/pokemon/${{ pokemon }["pokemon"]["name"]}`
-    );
-    let json = await res.json();
-    let spritesUrl = await json.sprites["back_default"];
-    let pokeName = await json.name;
-    let pokeId = await json.id;
-    let pokeMoves = await json.moves;
-    let pokeType = await json.types;
-    let pokeWeight = await json.weight;
-
-    Obj = {
-      sprite: spritesUrl,
-      name: pokeName,
-      id: pokeId,
-      moves: pokeMoves,
-      type: pokeType,
-      weight: pokeWeight,
-    };
-
-    console.log("Obj call: ", Obj);
-
-    setDataObj([Obj]);
-    return dataObj;
-  }
-
-  var Obj = {
-    sprite: "spritesUrl",
-    name: "pokeName",
-    id: "pokeId",
-    moves: "pokeMoves",
-    type: "pokeType",
-    weight: "pokeWeight",
-  };
-
-  const [dataObj, setDataObj] = React.useState();
+export default function RecipeReviewCard({ pokemon, onFavoriteClick }) {
+  let [expanded, setExpanded] = React.useState(false);
+  let colorFav = "gray";
 
   function handleExpandClick() {
-    getPokeInfo();
     setExpanded(!expanded);
   }
 
+  function handleFavoriteClick() {
+    let temp = { pokemon }.pokemon.favorites
+      ? (colorFav = "pinK")
+      : (colorFav = "gray");
+  }
+
+  handleFavoriteClick();
 
   return (
     <Card sx={{ maxWidth: 345 }}>
-      {console.log("Data Obj: ", { dataObj })}
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            P
+            {pokemon.name.slice(0, 1).toUpperCase()}
           </Avatar>
         }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title={'dataObj.name'}
+        title={`${pokemon.name.toUpperCase()}!`}
       />
       <CardMedia
         component="img"
         height="194"
-        image={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/00${dataObj.id}.png`}
+        image={pokemon.sprites.front_default}
         alt="Pokemon Image"
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          {`Type: ${dataObj.type} `}
+          {`Type: ${pokemon.types[0].type.name}`}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {`ID: ${dataObj.id} `}
+          {`ID: ${pokemon.id}`}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {`Moves: ${dataObj.moves}`}
+          {`Height: ${pokemon.height}`}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {`Weight: ${dataObj.weight}`}
+          {`Weight: ${pokemon.weight}`}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+        <IconButton
+          id="favorite-icon"
+          onClick={(event) => {
+            handleFavoriteClick();
+            onFavoriteClick(event, { pokemon });
+          }}
+          aria-label="add to favorites"
+          style={{ color: colorFav }}
+        >
           <FavoriteIcon />
         </IconButton>
         <ExpandMore
@@ -123,10 +93,18 @@ export default function RecipeReviewCard({ pokemon }) {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>{dataObj.moves}</Typography>
-          <Typography paragraph>{dataObj.moves}</Typography>
-          <Typography paragraph>{dataObj.moves}</Typography>
-          <Typography>{dataObj.moves}</Typography>
+          <Typography
+            paragraph
+          >{`Move: ${pokemon.moves[0].move.name}`}</Typography>
+          <Typography
+            paragraph
+          >{`Move: ${pokemon.moves[1].move.name}`}</Typography>
+          <Typography
+            paragraph
+          >{`Move: ${pokemon.moves[2].move.name}`}</Typography>
+          <Typography
+            paragraph
+          >{`Move: ${pokemon.moves[3].move.name}`}</Typography>
         </CardContent>
       </Collapse>
     </Card>

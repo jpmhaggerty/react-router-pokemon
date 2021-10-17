@@ -1,51 +1,9 @@
 import "./App.css";
-import { NavLink } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import SwipeableTextMobileStepper from "./SwipeableTextMobileStepper";
 import SpacingGrid from "./SpacingGrid.js";
 
-function Home({ pokemonArray }) {
-  //still need to collect the first ten items from the array and process
-
-  // //develop new image, etc. array from pokemon API
-  // const images = [
-  //   {
-  //     label: { pokemonArray }.name,
-  //     imgPath: `https://assets.pokemon.com/assets/cms2/img/pokedex/full/00${
-  //       { pokemonArray }.number
-  //     }.png`,
-  //   },
-  //   {
-  //     label: { pokemonArray }.name,
-  //     imgPath: `https://assets.pokemon.com/assets/cms2/img/pokedex/full/00${
-  //       { pokemonArray }.number
-  //     }.png`,
-  //   },
-  //   {
-  //     label: { pokemonArray }.name,
-  //     imgPath: `https://assets.pokemon.com/assets/cms2/img/pokedex/full/00${
-  //       { pokemonArray }.number
-  //     }.png`,
-  //   },
-  //   {
-  //     label: { pokemonArray }.name,
-  //     imgPath: `https://assets.pokemon.com/assets/cms2/img/pokedex/full/00${
-  //       { pokemonArray }.number
-  //     }.png`,
-  //   },
-  // ];
-
-  let images = [
-    {
-      label: "",
-      imgPath: "",
-    },
-  ];
-  if (pokemonArray !== null) {
-    images = { pokemonArray }.pokemonArray.results;
-  }
-
-  // `https://assets.pokemon.com/assets/cms2/img/pokedex/full/00${pokemonNumber}.png`
+function Home({ pokemonArray, onFavoriteClick }) {
 
   return (
     <div className="Home">
@@ -54,12 +12,10 @@ function Home({ pokemonArray }) {
       </header>
       <p>Pokémon!</p>
 
-      {/* should probably add buttons to the cards to set favorites- use heart/ thumb icon?  */}
       <Grid container justifyContent="center" spacing={2}>
-        <SwipeableTextMobileStepper images={images} />
+        <SwipeableTextMobileStepper pokemonArray={pokemonArray} />
       </Grid>
-      {console.log("Home: ", images)}
-      <SpacingGrid images={images} />
+      <SpacingGrid pokemonArray={pokemonArray} onFavoriteClick={onFavoriteClick} />
     </div>
   );
 }

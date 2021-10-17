@@ -12,7 +12,8 @@ import { autoPlay } from "react-swipeable-views-utils";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
-function SwipeableTextMobileStepper({ images }) {
+function SwipeableTextMobileStepper({ pokemonArray, onFavoriteClick }) {
+  let images = pokemonArray;
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
   const maxSteps = images.length;
@@ -30,7 +31,7 @@ function SwipeableTextMobileStepper({ images }) {
   };
 
   return (
-    <Box sx={{ maxWidth: 400, flexGrow: 1 }}>
+    <Box sx={{ maxWidth: 250, flexGrow: 1 }}>
       <Paper
         square
         elevation={0}
@@ -42,7 +43,7 @@ function SwipeableTextMobileStepper({ images }) {
           bgcolor: "background.default",
         }}
       >
-        <Typography>{images[activeStep].label}</Typography>
+        <Typography>{images[activeStep].name.toUpperCase()}!</Typography>
       </Paper>
       <AutoPlaySwipeableViews
         axis={theme.direction === "rtl" ? "x-reverse" : "x"}
@@ -51,7 +52,7 @@ function SwipeableTextMobileStepper({ images }) {
         enableMouseEvents
       >
         {images.map((step, index) => (
-          <div key={step.label}>
+          <div key={step.name}>
             {Math.abs(activeStep - index) <= 2 ? (
               <Box
                 component="img"
@@ -62,8 +63,8 @@ function SwipeableTextMobileStepper({ images }) {
                   overflow: "hidden",
                   width: "100%",
                 }}
-                src={step.imgPath}
-                alt={step.label}
+                src={step.sprites.front_default}
+                alt={step.name}
               />
             ) : null}
           </div>
